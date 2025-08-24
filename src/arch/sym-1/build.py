@@ -35,8 +35,9 @@ mkcpmfs(
 zip(
     name="diskimage",
     items={
-        "BDOS": "src/bdos",
-        "CPM": ".+sym-1",
+        "bdos.bin": "src/bdos",
+        "cpm.bin": ".+sym-1",
+        "boot.bin": "src/arch/sym-1/boot+boot.bin",
         "sym_1_bootable.img": ".+cpmfs",
     },
 )
