@@ -60,6 +60,7 @@ export(
         "images/kim-1-iec.zip": "src/arch/kim-1+distro-iec",
         "images/kim-1-sdshield.zip": "src/arch/kim-1+distro-sdshield",
         "images/sym-1.zip": "src/arch/sym-1+diskimage",
+        "images/sym-boot.bin": "src/arch/sym-1/boot+boot.bin",
     },
     deps=["tests"],
 )

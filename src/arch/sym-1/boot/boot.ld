@@ -1,5 +1,5 @@
 MEMORY {
-    zp : ORIGIN = 0x00, LENGTH = 0xef
+    zp : ORIGIN = 0x00, LENGTH = 0xff
 	ram (rw) : ORIGIN = 0x200, LENGTH = 0x0200
 }
 
