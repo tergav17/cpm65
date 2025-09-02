@@ -21,8 +21,11 @@ llvmrawprogram(
 
 mkcpmfs(
     name="cpmfs",
-    format="generic-1m",
-    items={"0:ccp.sys@sr": "src+ccp"}
+    format="generic-1m-bootable",
+    items={
+        "0:ccp.sys@sr": "src+ccp",
+        "0:bdos.sys@sr": "src/bdos"
+    }
     | MINIMAL_APPS
     | MINIMAL_APPS_SRCS
     | BIG_APPS
@@ -32,12 +35,26 @@ mkcpmfs(
     | FORTH_APPS,
 )
 
+simplerule(
+    name="cpmfs_bootable",
+    ins=[".+cpmfs", "./boot+boot.bin"],
+    outs=["=cf_diskimage.img"],
+    commands=[
+        "cp $[ins[0]] $[outs[0]]",
+        "dd if=$[ins[1]] of=$[outs[0]] bs=512 count=1 seek=0"
+        
+#        "cat $[ins[0]] /dev/zero | dd bs=512 count=1 > $[outs[0]]",
+#        "cat $[ins[1]] >> $[outs[0]]",
+    ],
+    label="MAKESYM",
+)
+
 zip(
-    name="diskimage",
+    name="images",
     items={
         "bdos.bin": "src/bdos",
         "cpm.bin": ".+sym-1",
-        "boot.bin": "src/arch/sym-1/boot+boot.bin",
-        "sym_1_bootable.img": ".+cpmfs",
+        "boot.bin": "./boot+boot.bin",
+        "sym_cf_diskimage.img": ".+cpmfs_bootable",
     },
 )
