@@ -38,10 +38,10 @@ mkcpmfs(
 simplerule(
     name="cpmfs_bootable",
     ins=[".+cpmfs", "./boot+boot.bin"],
-    outs=["=cf_diskimage.img"],
+    outs=["=sym_cf_diskimage.img"],
     commands=[
         "cp $[ins[0]] $[outs[0]]",
-        "dd if=$[ins[1]] of=$[outs[0]] bs=512 count=1 seek=0"
+        "dd if=$[ins[1]] of=$[outs[0]] bs=512 count=1 seek=0 conv=notrunc" 
         
 #        "cat $[ins[0]] /dev/zero | dd bs=512 count=1 > $[outs[0]]",
 #        "cat $[ins[1]] >> $[outs[0]]",
@@ -50,7 +50,7 @@ simplerule(
 )
 
 zip(
-    name="images",
+    name="diskimage",
     items={
         "bdos.bin": "src/bdos",
         "cpm.bin": ".+sym-1",

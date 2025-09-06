@@ -13,6 +13,7 @@ pntr:
 
 .global _start
 _start:
+	; clear decimal and set stack
 	cld
     
 	; post the "hello message"
